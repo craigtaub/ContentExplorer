@@ -1,0 +1,187 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<!-- saved from url=(0047) -->
+<html>
+	<head>
+	  <meta charset="utf-8" />
+	  <!-- Always force latest IE rendering engine (even in intranet) & Chrome Frame 
+	   Remove this if you use the .htaccess -->
+	  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+	
+	  <title>Geoff</title>
+
+<link rel="stylesheet"  href="jquery-mobile/jquery.mobile-1.1.1.css" /> 
+<link rel="stylesheet" href="jquery-mobile/jqm-docs.css"/>
+<script src="jquery-mobile/jquery-1.7.1.min.js"></script>
+<script src="jquery-mobile/jquery.mobile-1.1.1.js"></script>
+<script type="text/JavaScript" src="js/curvycorners.js"></script>
+
+	  <meta name="viewport" content="width=device-width; initial-scale=1.0" />
+
+
+	</head>
+
+<body>
+<div data-role="page" id="body">
+
+<style>
+/* for bg image alter jquery.mobile.css where blocks image from loading..
+.ui-overlay-c {
+	background-image: url('../images/Cocoonia--Greenest-Hills.jpg');
+	border-width: 0;
+} */
+#box { 
+padding: 10px;
+background-color:silver;
+opacity:0.7; /* takes care of image opacity */
+width:140px;
+height:160px;
+border-radius: 20px 20px 20px 20px;
+}
+#box p {
+padding-top:30px;
+color:black;
+font-weight:bold;
+}
+</style>
+
+	<div id="content" align="center">
+	<div id="primary">
+	
+	<table style="margin-top:50px;text-align: center; " border="0px" cellpadding="20px" cellspacing="20px"> 
+		<tr>
+			<td id="subindex.html?section=intro"><div id="box"><p>Introduction</p></div></td>
+			<td id="subindex.html?section=whatiseuro"><div id="box"><p>What is European <br/> Funding?</p></div></td>
+			<td id="subindex.html?section=euinst"><div id="box"><p>European Institutions</p></div></td>
+		</tr>
+		<tr>
+			<td id="subindex.html?section=projdes"><div id="box"><p>Project Design</p></div></td>
+			<td id="subindex.html?section=appwri"><div id="box"><p>Application<br/>/Bid writing</p></div></td>
+			<td id="subindex.html?section=budgets"><div id="box"><p>Budgets</p></div></td>
+		</tr>
+		<tr>
+			<td id="subindex.html?section=outcomes"><div id="box"><p>Outcomes, <br/>outputs, impacts<br/> and evaluation</p></div></td>
+			<td id="subindex.html?section=monitoring"><div id="box"><p>Monitoring</p></div></td>
+			<td id="subindex.html?section=audits"><div id="box"><p>Audits</p></div></td>
+		</tr>
+		<tr>
+			<td id="subindex.html?section=reporting"><div id="box"><p>Reporting</p></div></td>
+			<td id="subindex.html?section=recordkeep"><div id="box"><p>Record Keeping</p></div></td>
+			<td id="subindex.html?section=control"><div id="box"><p>Controls</p></div></td>
+		</tr>
+		<tr>
+			<td id="subindex.html?section=fraudaw"><div id="box"><p>Fraud Awareness</p></div></td>
+			<td id="subindex.html?section=availablefund"><div id="box"><p>Available Funds</p></div></td>
+			<td id="subindex.html?section=linksfunds"><div id="box"><p>Links to Funds</p></div></td>
+		</tr>
+		<tr>
+			<td id="loader.html?section=loader"><div id="box"><p>LOADER</p></div></td>
+			<td id="subindex.html?section=glossary"><div id="box"><p>Glossary</p></div></td>
+			<td id="menu.html"><div id="box"><p>MENU</p></div></td>
+		</tr>
+	</table>
+
+	</div>
+</div>
+<script>
+
+
+console.log('index-pre delegate');
+$( document ).delegate("body", "pageinit", function() {
+
+	console.log('index-post delegate');
+  	curvyCorners.addEvent(window, 'load', initCorners);
+	
+});
+
+$( document ).ready(function() {
+	console.log('index-doc ready');
+	
+//	addNav();
+
+	$("td").click(function() {
+		console.log('index-td cliked');
+		var id =$(this).attr('id');
+		linkLocation = id;
+		redirectPage(linkLocation);
+
+	});
+});
+
+//FUNCION LIST....runs on every page
+function addNav(){
+	var navHtml = '<div><a href="index.html">Home</a><a href="search.html">Search</a><a href="More.html">More</a></div>';
+	$('body').append(navHtml);
+}
+function initCorners() {
+	console.log('index-initCorners');
+	var settings = {
+	  tl: { radius: 20 },
+	  tr: { radius: 20 },
+	  bl: { radius: 20 },
+	  br: { radius: 20 },
+	  antiAlias: true
+	}
+	curvyCorners(settings, "#box");
+}
+function redirectPage(linkLocation) {
+	console.log('index-redirectPage, flip');
+	$.mobile.changePage( linkLocation, { transition: "flip"} );
+	//window.location = linkLocation;
+}
+function redirectMenuPage(linkLocation) {
+	console.log('index-redirectMenuPage, slideup');
+	$.mobile.changePage( linkLocation, { transition: "slideup"} );
+	//window.location = linkLocation;
+}
+//---- FOR LOADER 
+function getParameterByName(name) {
+	console.log('index-loader/sub-getParam function');
+    var match = RegExp('[?&]' + name + '=([^&]*)')
+                    .exec(window.location.search);
+    var section = match && decodeURIComponent(match[1].replace(/\+/g, ' '));
+    return section;
+}
+
+function runLoaderAjaxCall(section){
+	console.log('index-loader-runAjaxCall');
+	
+	var url = 'http://craigtaub.dyndns.org:/ajax.php';
+	//var url = 'http://localhost/index.php';
+	//MAYBE A LOADER ICON HERE
+	$.getJSON(url+'?section='+section+'.json', function(data) {
+	  var html = data.first;
+       $('#bodyThree #primary').html(html);
+       //$.each(data, function(index, value) {  });
+	});
+}
+function goBackLoader() {
+	console.log('index-loader/sub/menu-goBack, flip');
+	$.mobile.changePage( "index.html", { transition: "flip"} );
+}
+//---FROM SUBINDEC
+function runSubAjaxCall(section){
+	console.log('index-subindex-ajax call');
+	//populate content
+	$.getJSON('ajax/'+section+'.json', function(data) {
+	  var html = data.html;
+       //append adding it multiple times
+       $('#bodyTwo #primary').html(html);
+	});
+}
+function goBackSub() {
+	console.log('index-loader/sub-goBack, flip');
+	$.mobile.changePage( 'menu.html', { transition: "flip"} );
+}
+function goBackContent() {
+	console.log('index-content-goBack, slidedown');
+	//menu and index.html both flash after it loads, why the flash
+	$.mobile.changePage( 'menu.html', { transition: "slidedown", inline:"true"} );
+	//http://jquerymobile.com/test/docs/pages/page-transitions.html 
+}
+
+</script>
+
+</div>
+</body>
+
+</html>

@@ -1,0 +1,59 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<!-- saved from url=(0047) -->
+<html>
+	<head>
+	  <meta charset="utf-8" />
+	  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js"></script>
+	  <!-- Always force latest IE rendering engine (even in intranet) & Chrome Frame 
+	   Remove this if you use the .htaccess -->
+	  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+	
+	  <title>Geoff App</title>
+	  <script type="text/javascript" src="/jquery-1.7.1.min.js"></script>
+	  <meta name="viewport" content="width=device-width; initial-scale=1.0" />
+	  <style>
+	  	td {
+			background: url('../images/box1.png'); 
+	  		font-weight:bold;
+	  		opacity:0.5; /* takes care of image opacity */
+	  		width:180px;
+	  		height:175px;
+	  	}
+
+	  </style>
+
+	</head>
+<body>
+	
+	<div id="content" align="center">
+	<div id="primary">
+	<table style="margin-top:50px;text-align: center; " border="0px" cellpadding="30px" cellspacing="30px"> 
+		<tr>
+			<td id="subindex.html?section=business-services">Business Services</td>
+			<td id="business-services.html">Funding Services</td>
+		</tr>
+		<tr>
+			<td id="subindex.html?section=leadership">Hospitality, Leisure, <br/>Travel and Tourism Services</td>
+			<td>Training</td>
+		</tr>
+		<tr>
+			<td>About</td>
+			<td>Contact</td>
+		</tr>
+	</table>
+	</div>
+</div>
+</body>
+<script>
+	$("td").click(function() {
+     var id =$(this).attr('id');
+     window.location = id;
+     /*$('#primary').animate({
+		    height: 'toggle'
+		  }, 1000, function() {
+		    // Animation complete.
+		    $('#content').append('<div></div>');
+		  });*/
+   });
+</script>
+</html>
